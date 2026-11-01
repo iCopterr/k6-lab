@@ -78,3 +78,39 @@ The test with P95=300 failed because the response time was higher than 300 ms. T
 - Exit code: 99
 
 The normal test passed because the response times were within the requirements. The modified test failed because p(95) was higher than 100 ms.
+
+### Step 0.8: Bug Hunt
+
+- Virtual users: 5
+- Duration: 20 seconds
+
+**Before Fix:**
+- Total requests: 74
+- Checks succeeded: 85.58% (190/222)
+- Checks failed: 14.41% (32/222)
+- No pepperoni: 70 passed, 4 failed
+- No knife needed: 46 passed, 28 failed
+- HTTP failed requests: 0%
+- p(95): 503.39 ms
+
+**Investigation:**
+
+The API used the ingredient name "Pepperoni" and the tool name "Knife". However, the original request used lowercase values.
+
+**Fix:**
+
+Changed `excludedIngredients` from `pepperoni` to `Pepperoni` and `excludedTools` from `knife` to `Knife`.
+
+**After Fix:**
+- Total requests: 75
+- Checks succeeded: 100% (225/225)
+- Checks failed: 0%
+- HTTP failed requests: 0%
+- p(95): 458.92 ms
+- Exit code: 0
+
+**Conclusion:**
+
+The problem was caused by using incorrect capitalization in the request. After using the correct names, all checks passed.
+
+Automated testing helped find this problem because multiple requests tested different pizza recommendations. A single manual request might not show the problem.
