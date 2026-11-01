@@ -235,3 +235,100 @@ The p(95) response time remained at 380.26 ms, but a few requests were much slow
 This shows why long-duration testing is useful. It can reveal occasional errors and slow requests that shorter tests might not detect.
 
 The results do not confirm whether performance became worse over time. The response-time graph should be checked to investigate this.
+
+## Part B: Reflection
+
+### 1. Test Results
+
+| Test | Users | Req/s | p(95) | Max | Failed | Checks |
+|---|---|---|---|---|---|---|
+| A1 Smoke | 1 | 0.49 | 368.33 ms | 392.84 ms | 0% | 100% |
+| A2 Average | 3 | 1.31 | 398 ms | 526 ms | 0% | 100% |
+| A3 Stress | 5 | 2.15 | 396.03 ms | 610.19 ms | 0% | 100% |
+| A4 Spike | 5 | 1.02 | 404.29 ms | 454.08 ms | 0% | 100% |
+| A5 Soak | 2 | 0.97 | 380.26 ms | 10260 ms | 0.31% | 99.62% |
+
+### 2. Why was the request rate below 5 req/s in Step 0.2?
+
+Because each user had to wait for the server and sleep for 1 second before making another request.
+
+That is why 5 users did not make 5 requests every second.
+
+### 3. What did you learn from Average and Stress Tests?
+
+A2 used 3 users, and A3 used 5 users.
+
+A3 had more requests, but the response time was almost the same.
+
+Both tests had no failed requests.
+
+This means the website worked well with up to 5 users in our tests.
+
+### 4. What happened during the Spike Test?
+
+The number of users went from 1 to 5 very quickly.
+
+All checks passed, and no requests failed.
+
+The website worked well when the number of users increased quickly.
+
+### 5. What did you learn from the Soak Test?
+
+We tested the website for 11 minutes.
+
+Most requests were fast, but one took about 10 seconds.
+
+There were 2 failed requests and 4 failed checks.
+
+This shows that testing for a long time can help us find problems that short tests may miss.
+
+### 6. Why is p(95) useful?
+
+p(95) tells us how fast 95% of requests were.
+
+It is useful because the average time does not show all slow requests.
+
+We can use p(95) to see how fast the website is for most users.
+
+### 7. Why can results be different on a public website?
+
+First, internet speed can change the response time.
+
+Second, other people may use the website while we are testing it.
+
+These things can make the results different each time.
+
+### 8. Why should we not test a public website with too many users?
+
+Too many requests can make the website slow or stop working.
+
+This can affect other people who are using it.
+
+We should only test websites when we have permission and follow the rules.
+
+### 9. How can we make a performance requirement easy to test?
+
+A bad requirement is:
+
+"The website should be fast."
+
+It is not clear how fast the website should be.
+
+A better requirement is:
+
+"With 3 users, 95% of requests must take less than 1 second, 99% must take less than 1.5 seconds, and less than 1% of requests can fail."
+
+We can test this with K6:
+
+```javascript
+export const options = {
+  vus: 3,
+  duration: '30s',
+  thresholds: {
+    http_req_failed: ['rate<0.01'],
+    http_req_duration: ['p(95)<1000', 'p(99)<1500'],
+  },
+};
+```
+
+This makes it easy to check if the website passes or fails.
