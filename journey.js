@@ -40,6 +40,7 @@ export function journey() {
     }
   },
 });
+  });
 
   sleep(1);
 
