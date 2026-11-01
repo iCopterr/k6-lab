@@ -157,3 +157,27 @@ The average load test used 3 virtual users. The request rate increased from 0.49
 The p(95) response time increased slightly from 368.33 ms to 398 ms. There were no failed requests, and all checks passed.
 
 This shows that the website handled the tested average load without major performance problems.
+
+### A3: Stress Test
+
+- Virtual users: 5
+- Duration: 3 minutes
+- Total requests: 402
+- Request rate: 2.154386 req/s
+- Completed iterations: 134
+- Average response time: 294.81 ms
+- p(95): 396.03 ms
+- Max response time: 610.19 ms
+- Failed requests: 0%
+- Checks succeeded: 100% (670/670)
+- Homepage p(95): 274.80 ms
+- Recommendation p(95): 465.33 ms
+- Exit code: 0
+
+**Result: PASS**
+
+All thresholds passed, and there were no failed HTTP requests.
+
+Compared with A2, the number of requests increased from 243 to 402, while the p(95) response time stayed almost the same.
+
+This shows that the website handled 5 virtual users without major performance problems during this test.
