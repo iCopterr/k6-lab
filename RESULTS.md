@@ -181,3 +181,29 @@ All thresholds passed, and there were no failed HTTP requests.
 Compared with A2, the number of requests increased from 243 to 402, while the p(95) response time stayed almost the same.
 
 This shows that the website handled 5 virtual users without major performance problems during this test.
+
+### A4: Spike Test
+
+- Virtual users: 5 (maximum)
+- Duration: 2 minutes 20 seconds
+- Total requests: 150
+- Request rate: 1.022636 req/s
+- Completed iterations: 50
+- Average response time: 297.78 ms
+- p(95): 404.29 ms
+- Max response time: 454.08 ms
+- Failed requests: 0%
+- Checks succeeded: 100% (250/250)
+- Homepage p(95): 304.65 ms
+- Recommendation p(95): 425.03 ms
+- Exit code: 0
+
+**Result: PASS**
+
+All thresholds passed, and there were no failed HTTP requests.
+
+The spike test increased the number of virtual users from 1 to 5 in 5 seconds, then reduced it back to 1.
+
+The website handled this sudden increase in load without request failures. The overall p(95) response time was 404.29 ms, which was close to the previous tests.
+
+This suggests that the website handled the tested traffic spike well.
