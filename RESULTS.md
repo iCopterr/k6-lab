@@ -114,3 +114,23 @@ Changed `excludedIngredients` from `pepperoni` to `Pepperoni` and `excludedTools
 The problem was caused by using incorrect capitalization in the request. After using the correct names, all checks passed.
 
 Automated testing helped find this problem because multiple requests tested different pizza recommendations. A single manual request might not show the problem.
+
+### A1: Smoke Test
+
+- Virtual users: 1
+- Duration: 30 seconds
+- Total requests: 18
+- Request rate: 0.488911 req/s
+- Average response time: 291.73 ms
+- p(95): 368.33 ms
+- Max response time: 392.84 ms
+- Failed requests: 0%
+- Checks succeeded: 100% (30/30)
+- Completed iterations: 6
+- Exit code: 0
+
+**Result: PASS**
+
+All checks passed, and there were no failed HTTP requests.
+
+The smoke test showed that the main user journey worked correctly with one virtual user. The request rate was low because the journey included waiting time between requests.
