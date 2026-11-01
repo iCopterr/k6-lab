@@ -134,3 +134,26 @@ Automated testing helped find this problem because multiple requests tested diff
 All checks passed, and there were no failed HTTP requests.
 
 The smoke test showed that the main user journey worked correctly with one virtual user. The request rate was low because the journey included waiting time between requests.
+
+### A2: Average Load Test
+
+- Virtual users: 3
+- Duration: 3 minutes
+- Total requests: 243
+- Request rate: 1.31 req/s
+- Completed iterations: 81
+- Average response time: 288 ms
+- p(95): 398 ms
+- p(99): 417 ms
+- Max response time: 526 ms
+- Failed requests: 0%
+- Checks succeeded: 100%
+- Exit code: 0
+
+**Result: All checks passed.**
+
+The average load test used 3 virtual users. The request rate increased from 0.49 req/s in A1 to 1.31 req/s in A2.
+
+The p(95) response time increased slightly from 368.33 ms to 398 ms. There were no failed requests, and all checks passed.
+
+This shows that the website handled the tested average load without major performance problems.
