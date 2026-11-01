@@ -28,13 +28,18 @@ export function journey() {
     const res = http.get(`${BASE_URL}/api/quotes`);
 
     check(res, {
-      'quotes status is 200': (r) => r.status === 200,
-      'quotes are available': (r) => {
-        const data = r.json();
-        return Array.isArray(data.quotes) && data.quotes.length > 0;
-      },
-    });
-  });
+  'quotes status is 200': (r) => r.status === 200,
+  'quotes are available': (r) => {
+    if (r.status !== 200) return false;
+
+    try {
+      const data = r.json();
+      return Array.isArray(data.quotes) && data.quotes.length > 0;
+    } catch (error) {
+      return false;
+    }
+  },
+});
 
   sleep(1);
 

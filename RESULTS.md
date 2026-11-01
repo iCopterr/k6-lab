@@ -207,3 +207,31 @@ The spike test increased the number of virtual users from 1 to 5 in 5 seconds, t
 The website handled this sudden increase in load without request failures. The overall p(95) response time was 404.29 ms, which was close to the previous tests.
 
 This suggests that the website handled the tested traffic spike well.
+
+### A5: Soak Test
+
+- Virtual users: 2
+- Duration: 11 minutes
+- Total requests: 644
+- Request rate: 0.969961 req/s
+- Completed iterations: 215
+- Average response time: 325.10 ms
+- p(95): 380.26 ms
+- Max response time: 10.26 s
+- Failed requests: 0.31% (2/644)
+- Checks succeeded: 99.62% (1069/1073)
+- Homepage p(95): 287.51 ms
+- Recommendation p(95): 406.51 ms
+- Exit code: 0
+
+**Result: PASS**
+
+All configured thresholds passed, but the test detected two failed HTTP requests and four failed checks.
+
+During the test, one response could not be parsed as JSON. The maximum response time also reached 10.26 seconds.
+
+The p(95) response time remained at 380.26 ms, but a few requests were much slower.
+
+This shows why long-duration testing is useful. It can reveal occasional errors and slow requests that shorter tests might not detect.
+
+The results do not confirm whether performance became worse over time. The response-time graph should be checked to investigate this.
