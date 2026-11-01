@@ -56,3 +56,25 @@ The API returned status 401 when no token was provided. This was the expected re
 
 The test with P95=300 failed because the response time was higher than 300 ms. The exit code was 99, which means a threshold was not met.
 
+### Step 0.7: From Requirement to Thresholds
+
+- Virtual users: 3
+- Duration: 30 seconds
+
+**Normal Test:**
+- Total requests: 68
+- p(95): 370.53 ms
+- p(99): 377.11 ms
+- Failed requests: 0%
+- Exit code: 0
+- All thresholds passed.
+
+**Modified Test:**
+- Total requests: 65
+- Modified threshold: p(95) < 100 ms
+- Measured p(95): 380.22 ms
+- Measured p(99): 1410 ms
+- Failed requests: 0%
+- Exit code: 99
+
+The normal test passed because the response times were within the requirements. The modified test failed because p(95) was higher than 100 ms.
